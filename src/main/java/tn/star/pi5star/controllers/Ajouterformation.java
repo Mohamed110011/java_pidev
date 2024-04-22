@@ -79,7 +79,8 @@ public class Ajouterformation {
     @FXML
     void afficherF(ActionEvent event) {
         try {
-
+            ServiceFormation serviceFormation=new ServiceFormation();
+            System.out.println(serviceFormation.getAll());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/cardformation.fxml"));
             Parent parent = loader.load();
             Ajouterformation displayFormationController = loader.getController();
@@ -106,7 +107,7 @@ public class Ajouterformation {
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
 
         }
 

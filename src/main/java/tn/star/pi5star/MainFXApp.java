@@ -5,9 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
-public abstract class mainFX extends Application {
+public class MainFXApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -23,8 +24,7 @@ public abstract class mainFX extends Application {
             primaryStage.show();
 
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            System.out.println(e.getMessage());
         }
-
     }
 }
