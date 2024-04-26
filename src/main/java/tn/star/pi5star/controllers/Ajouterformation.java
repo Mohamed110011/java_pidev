@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,13 +18,21 @@ import javafx.stage.Stage;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.services.ServiceFormation;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Ajouterformation {
 
     @FXML
     private Button ajout;
+    @FXML
+    private DatePicker dateF;
 
 
     @FXML
@@ -41,23 +50,38 @@ public class Ajouterformation {
     @FXML
     private TextField titleF;
 
-    private final ServiceFormation sf = new ServiceFormation();
+    Formation sf = new Formation();
 
     @FXML
-    void ajouterF(ActionEvent event) {String nom= titleF.getText();
-        String description=descF.getText();
+    void ajouterF(ActionEvent event) {
+        // Récupération des informations du formulaire
 
+            sf.setTitle(titleF.getText());
+            sf.setDescription(descF.getText());
+            
 
+            Date date = Date.valueOf(dateF.getValue());
+            sf.setDate(date);
+            //sf.setImage(imageF.getImage().getUrl());
+            
 
-        if (nom.isEmpty()||  description.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs.");
-            alert.showAndWait();
-            return;
+            try{
+                ServiceFormation serviceFormation=new ServiceFormation();
+                serviceFormation.add(sf);
+                showAlert("Event Added", "The event has been successfully added.");
+            }catch (Exception eu){
+                System.out.println(eu.getMessage());
+                showAlert("Event failed", "famma ghalta owwwww.");
+
+            }
         }
-        sf.add(new Formation(nom,description,imageF.getAccessibleText()));
 
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
     @FXML
@@ -70,10 +94,10 @@ public class Ajouterformation {
             String imagePath = file.toURI().toString();
             Image image = new Image(imagePath);
             imageF.setImage(image);
-            // fichierTextField.setText(file.getAbsolutePath());
-        }
+            sf.setImage(file.getName());
+            //fichierTextField.setText(file.getAbsolutePath());
+        }}
 
-    }
 
 
     @FXML

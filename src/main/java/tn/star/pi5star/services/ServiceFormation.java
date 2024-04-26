@@ -17,7 +17,7 @@ public class ServiceFormation implements IService<Formation> {
     }
     @Override
     public void add(Formation formation) {
-        String reqA="INSERT INTO `formation`( `title`, `description`, `image`) VALUES (?,?,?)";
+        String reqA="INSERT INTO `formation`( `title`, `description`, `image`,`date`) VALUES (?,?,?,?)";
 
         try{
             PreparedStatement preparedStatement = Mydatabase.getInstance().getCnx().prepareStatement(reqA);
@@ -26,6 +26,8 @@ public class ServiceFormation implements IService<Formation> {
             preparedStatement.setString(1, formation.getTitle());
             preparedStatement.setString(2, formation.getDescription());
             preparedStatement.setString(3, formation.getImage());
+            preparedStatement.setDate(4,new java.sql.Date(formation.getDate().getTime()));
+
 
 
 
@@ -43,31 +45,44 @@ public class ServiceFormation implements IService<Formation> {
     }
 
     @Override
-    public ArrayList getAll(){
-        String reqAF="SELECT * FROM `formation` ";
-        try{
-            Statement statement = Mydatabase.getInstance().getCnx().createStatement();
+    public ArrayList<Formation> getAll() {
+        System.out.println("get all events ");
+        ArrayList<Formation> formations = new ArrayList<>();
+        String qry ="SELECT * FROM `formation`";
+        try {
+            Statement stm = cnx.createStatement();
 
-            ResultSet rs=statement.executeQuery(reqAF);
-            while(rs.next()){
-                Formation formation=new Formation(
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getString("image")
+            ResultSet rs = stm.executeQuery(qry);
 
+            while (rs.next()){
+                Formation e = new Formation();
+                e.setId(rs.getInt("id"));
+                e.setTitle(rs.getString("title"));
 
-                ); System.out.println(formation);
+                e.setDescription(rs.getString("description"));
+                e.setDate(rs.getDate("date"));
+
+                e.setImage(rs.getString("image"));
+                //List<Ressources> dons=get(e.getId());
+                //e.setDons(dons);
+                //e.setGalerie(Arrays.asList((String[]) rs.getArray("gallery").getArray()));
+                //e.setBanner(rs.getString("dons"));
+                formations.add(e);
             }
-        }catch(SQLException e){
-            System.err.println(e.getMessage());
-        }
-        return null;
-    }
+            System.out.println(formations);
 
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return formations;
+
+    }
     @Override
     public void update(Formation formation) {
         String reqU="UPDATE `formation` SET" +
-                "`title`=?,`description`=?,`image`=? ,`rate`=?WHERE `id`=?";
+                "`title`=?,`description`=?,`image`=?, 'date'=? WHERE `id`=?";
         try{
 
             PreparedStatement preparedStatement=Mydatabase.getInstance().getCnx().prepareStatement(reqU) ;
@@ -75,7 +90,9 @@ public class ServiceFormation implements IService<Formation> {
             preparedStatement.setString(2,formation.getDescription());
 
             preparedStatement.setString(3,formation.getImage());
-            preparedStatement.setInt(4,formation.getId());
+
+            preparedStatement.setDate(4, new java.sql.Date(formation.getDate().getTime()));
+            preparedStatement.setInt(5,formation.getId());
 
             int rows = preparedStatement.executeUpdate();
             if(rows>0){

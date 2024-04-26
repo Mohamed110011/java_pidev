@@ -40,7 +40,7 @@
                            <children>
                               <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@Image/Group 93.png" />
+                                    <Image url="@Image/JJJ.jpg" />
                                  </image>
                               </ImageView>
                               <Button mnemonicParsing="false" text="Dashboard" textFill="#10a2eb">
@@ -139,7 +139,7 @@
                                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image" GridPane.rowIndex="3" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.rowIndex="2" />
                                 <TextField fx:id="descF" prefHeight="78.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <DatePicker fx:id="dateF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
                                       <Button mnemonicParsing="false" onAction="#choisirImage" text="Choisir image" />
