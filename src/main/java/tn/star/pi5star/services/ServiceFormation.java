@@ -46,7 +46,7 @@ public class ServiceFormation implements IService<Formation> {
 
     @Override
     public ArrayList<Formation> getAll() {
-        System.out.println("get all events ");
+        System.out.println("get all formation");
         ArrayList<Formation> formations = new ArrayList<>();
         String qry ="SELECT * FROM `formation`";
         try {
@@ -63,10 +63,7 @@ public class ServiceFormation implements IService<Formation> {
                 e.setDate(rs.getDate("date"));
 
                 e.setImage(rs.getString("image"));
-                //List<Ressources> dons=get(e.getId());
-                //e.setDons(dons);
-                //e.setGalerie(Arrays.asList((String[]) rs.getArray("gallery").getArray()));
-                //e.setBanner(rs.getString("dons"));
+
                 formations.add(e);
             }
             System.out.println(formations);
@@ -113,13 +110,14 @@ public class ServiceFormation implements IService<Formation> {
 
 
     @Override
-    public boolean delete(Formation formation){
+    public boolean delete(int id){
         String reqD="DELETE FROM `formation` WHERE `id`=?";
 
         try{
             PreparedStatement preparedStatement = Mydatabase.getInstance().getCnx().prepareStatement(reqD);
 
-            preparedStatement.setInt(1,formation.getId());
+
+            preparedStatement.setInt(1,id);
 
             int rows=preparedStatement.executeUpdate();
             if(rows>0){
@@ -132,5 +130,7 @@ public class ServiceFormation implements IService<Formation> {
     }
 
 
+    public void initData(Formation formation) {
+    }
 }
 

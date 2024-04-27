@@ -65,13 +65,13 @@ public class ServiceRessources implements IService<Ressources> {
 
 
     @Override
-    public boolean delete(Ressources ressources){
+    public boolean delete(int id){
         String reqD="DELETE FROM `ressources` WHERE `id`=?";
 
         try{
             PreparedStatement preparedStatement = Mydatabase.getInstance().getCnx().prepareStatement(reqD);
 
-            preparedStatement.setInt(1,ressources.getId());
+            preparedStatement.setInt(1,id);
 
             int rows=preparedStatement.executeUpdate();
             if(rows>0){

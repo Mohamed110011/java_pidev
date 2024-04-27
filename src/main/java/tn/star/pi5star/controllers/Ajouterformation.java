@@ -29,17 +29,13 @@ import java.time.LocalDate;
 
 public class Ajouterformation {
 
-    @FXML
-    private Button ajout;
+
     @FXML
     private DatePicker dateF;
 
 
     @FXML
-    private Button ajout1;
-
-    @FXML
-    private Button ajout11;
+    private Button afficherF;
 
     @FXML
     private TextField descF;
@@ -68,12 +64,19 @@ public class Ajouterformation {
             try{
                 ServiceFormation serviceFormation=new ServiceFormation();
                 serviceFormation.add(sf);
-                showAlert("Event Added", "The event has been successfully added.");
+                showAlert("Ajouter Formation", "La formation est ajouter.");
             }catch (Exception eu){
                 System.out.println(eu.getMessage());
-                showAlert("Event failed", "famma ghalta owwwww.");
+                showAlert("formation failed", "famma ghalta owwwww.");
 
             }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherformation.fxml"));
+        try {
+            Parent fxmlLoader = loader.load();
+            titleF.getScene().setRoot(fxmlLoader);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         }
 
     private void showAlert(String title, String content) {
@@ -88,6 +91,8 @@ public class Ajouterformation {
     void choisirImage(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une image");
+        FileChooser.ExtensionFilter imageFilter = new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif");
+        fileChooser.getExtensionFilters().add(imageFilter);
         File file = fileChooser.showOpenDialog(null);
         if (file != null)
         {
@@ -100,42 +105,22 @@ public class Ajouterformation {
 
 
 
+
     @FXML
     void afficherF(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherformation.fxml"));
         try {
-            ServiceFormation serviceFormation=new ServiceFormation();
-            System.out.println(serviceFormation.getAll());
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/cardformation.fxml"));
-            Parent parent = loader.load();
-            Ajouterformation displayFormationController = loader.getController();
-            Scene scene = new Scene(parent);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-
-
-    }
-
-    @FXML
-    void modifierF(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierformation.fxml"));
-            Parent parent = loader.load();
-            Modifierformation displayFormationController = loader.getController();
-            Scene scene = new Scene(parent);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
+            Parent fxmlLoader = loader.load();
+            titleF.getScene().setRoot(fxmlLoader);
+        }catch (Exception e) {
             System.out.println(e.getMessage());
-
         }
 
     }
+
+
+
+
 
     public void initData(Formation formation) {
     }

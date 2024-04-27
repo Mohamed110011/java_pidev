@@ -140,10 +140,10 @@
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" GridPane.rowIndex="2" />
                                 <TextField fx:id="descF" prefHeight="78.0" prefWidth="167.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <DatePicker fx:id="dateF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
                                       <Button mnemonicParsing="false" onAction="#choisirImage" text="Choisir image" />
-                                      <ImageView fx:id="imageF" fitHeight="101.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
+                                      <ImageView fx:id="imageF" fitHeight="101.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>
                            </children>
@@ -158,12 +158,7 @@
                                     <ColorAdjust brightness="0.23" contrast="0.23" hue="-0.91" saturation="0.89" />
                                  </effect>
                               </Button>
-                              <Button fx:id="ajout1" mnemonicParsing="false" onAction="#afficherF" prefHeight="48.0" prefWidth="112.0" styleClass="btn_primary" text="Afficher">
-                                 <effect>
-                                    <ColorAdjust brightness="0.23" contrast="0.23" hue="-0.91" saturation="0.89" />
-                                 </effect>
-                              </Button>
-                              <Button fx:id="ajout11" mnemonicParsing="false" onAction="#modifierF" prefHeight="48.0" prefWidth="125.0" styleClass="btn_primary" text="Modifier">
+                              <Button fx:id="afficherF" layoutX="309.0" layoutY="34.0" mnemonicParsing="false" onAction="#afficherF" prefHeight="48.0" prefWidth="107.0" styleClass="btn_primary" text="Afficher">
                                  <effect>
                                     <ColorAdjust brightness="0.23" contrast="0.23" hue="-0.91" saturation="0.89" />
                                  </effect>

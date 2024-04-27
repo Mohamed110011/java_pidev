@@ -18,6 +18,15 @@ public class Formation {
 
     }
 
+    public Formation(int id, int idSpecialiste, String title, String description, String image, Date date) {
+        this.id = id;
+        this.idSpecialiste = idSpecialiste;
+        this.title = title;
+        this.description = description;
+        this.image = image;
+        this.date = date;
+    }
+
     public Formation() {
     }
 

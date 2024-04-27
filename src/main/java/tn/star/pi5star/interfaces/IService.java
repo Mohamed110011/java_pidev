@@ -9,6 +9,6 @@ public interface IService<T>{
     void update(T t );
 
 
-    boolean delete (T t);
+    boolean delete (int id);
 
 }
