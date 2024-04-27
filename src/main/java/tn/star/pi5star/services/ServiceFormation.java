@@ -2,6 +2,7 @@ package tn.star.pi5star.services;
 
 import tn.star.pi5star.interfaces.IService;
 import tn.star.pi5star.models.Formation;
+import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
 
 import java.sql.*;
@@ -76,37 +77,30 @@ public class ServiceFormation implements IService<Formation> {
         return formations;
 
     }
+
     @Override
     public void update(Formation formation) {
-        String reqU="UPDATE `formation` SET" +
-                "`title`=?,`description`=?,`image`=?, 'date'=? WHERE `id`=?";
-        try{
+        String query = "UPDATE formation SET title=?, description=?,  image=?, date=? WHERE id=?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setString(1, formation.getTitle());
+            statement.setString(2, formation.getDescription());
+            statement.setString(3, formation.getImage());
+            statement.setDate(4, new java.sql.Date(formation.getDate().getTime()));
 
-            PreparedStatement preparedStatement=Mydatabase.getInstance().getCnx().prepareStatement(reqU) ;
-            preparedStatement.setString(1,formation.getTitle() );
-            preparedStatement.setString(2,formation.getDescription());
 
-            preparedStatement.setString(3,formation.getImage());
+            statement.setLong(5, formation.getId());
 
-            preparedStatement.setDate(4, new java.sql.Date(formation.getDate().getTime()));
-            preparedStatement.setInt(5,formation.getId());
-
-            int rows = preparedStatement.executeUpdate();
-            if(rows>0){
-                System.out.println("formation a été modifié avec succés");
-            }
-
-        }catch(SQLException e){
-            System.err.println(e.getMessage());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
 
+    @Override
+    public void update(Ressources ressources) {
 
-
-
-
-
+    }
 
 
     @Override
@@ -128,9 +122,29 @@ public class ServiceFormation implements IService<Formation> {
         }
         return false;
     }
-
-
-    public void initData(Formation formation) {
+    @Override
+    public Formation getFormationById(int formationId) {
+        Formation formation = null;
+        String query = "SELECT * FROM formation WHERE id=?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setLong(1, formationId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    formation = new Formation();
+                    System.out.println("hello");
+                    formation.setId(resultSet.getInt("id"));
+                    formation.setTitle(resultSet.getString("title"));
+                    formation.setDate(resultSet.getDate("date"));
+                    formation.setImage(resultSet.getString("image"));
+                    formation.setDescription(resultSet.getString("description"));
+                    System.out.println(formation);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return formation;
     }
+
 }
 

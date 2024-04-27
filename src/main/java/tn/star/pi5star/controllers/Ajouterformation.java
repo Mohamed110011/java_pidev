@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.services.ServiceFormation;
+import tn.star.pi5star.utils.Validator;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -50,16 +51,20 @@ public class Ajouterformation {
 
     @FXML
     void ajouterF(ActionEvent event) {
+
+        if (Validator.isNonEmpty(titleF) && Validator.isNonEmpty(descF)){
+
         // Récupération des informations du formulaire
 
             sf.setTitle(titleF.getText());
             sf.setDescription(descF.getText());
-            
+
 
             Date date = Date.valueOf(dateF.getValue());
             sf.setDate(date);
             //sf.setImage(imageF.getImage().getUrl());
-            
+
+
 
             try{
                 ServiceFormation serviceFormation=new ServiceFormation();
@@ -78,6 +83,8 @@ public class Ajouterformation {
             System.out.println(e.getMessage());
         }
         }
+    else{Validator.showAlert("Error", "Please fill in all the fields");}
+    }
 
     private void showAlert(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

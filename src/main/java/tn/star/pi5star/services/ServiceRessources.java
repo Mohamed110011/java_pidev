@@ -1,6 +1,7 @@
 package tn.star.pi5star.services;
 
 import tn.star.pi5star.interfaces.IService;
+import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
 
@@ -82,6 +83,12 @@ public class ServiceRessources implements IService<Ressources> {
         }
         return false;
     }
+
+    @Override
+    public Formation getFormationById(int formationId) {
+        return null;
+    }
+
     @Override
     public ArrayList getAll(){
         String reqAF="SELECT * FROM `ressource` ";
@@ -103,6 +110,11 @@ public class ServiceRessources implements IService<Ressources> {
             System.err.println(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public void update(Formation formation) {
+
     }
 
 

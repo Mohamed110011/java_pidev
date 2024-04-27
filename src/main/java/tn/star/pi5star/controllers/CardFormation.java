@@ -56,7 +56,21 @@ public class CardFormation {
 
     @FXML
     void modifierFormation(ActionEvent event) {
+        try {
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierformation.fxml"));
+            Parent fxmlLoader = loader.load();
+            modifieraff.getScene().setRoot(fxmlLoader);
+            Modifierformation modifierformation = loader.getController();
+            modifierformation.getFormationId(formation.getId());
+            System.out.println(formation.getId());
+
+
+
+
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
 
     }
@@ -84,4 +98,21 @@ public class CardFormation {
     }
 
 
-}
+
+
+    @FXML
+    void ajouterRessource(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterressource.fxml"));
+        try {
+            Parent fxmlLoader = loader.load();
+            ajouterressourceaff.getScene().setRoot(fxmlLoader);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+    }
+
+
+
