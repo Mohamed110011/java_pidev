@@ -1,6 +1,7 @@
 package tn.star.pi5star.services;
 
-import tn.star.pi5star.interfaces.IService;
+import tn.star.pi5star.interfaces.IServiceFormation;
+import tn.star.pi5star.interfaces.IServiceRessource;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
@@ -8,24 +9,25 @@ import tn.star.pi5star.utils.Mydatabase;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceRessources implements IService<Ressources> {
+public class ServiceRessources implements IServiceRessource<Ressources> {
     private Connection cnx ;
 
     public ServiceRessources(){
         cnx = Mydatabase.getInstance().getCnx();
     }
     @Override
-    public void add(Ressources ressources){
-        String reqA="INSERT INTO `formation`(`id`, 'id_formation','description', 'name','path_file') VALUES (?,?,?,?,?)";
+    public void addRessource(Ressources ressources){
+        String reqA="INSERT INTO `resource`( id_formation_id,path_file, name,description) VALUES (?,?,?,?)";
 
         try{
             PreparedStatement preparedStatement = Mydatabase.getInstance().getCnx().prepareStatement(reqA);
 
-            preparedStatement.setInt(1, ressources.getId());
-            preparedStatement.setInt(2, ressources.getId_formation());
-            preparedStatement.setString(3, ressources.getDescription());
-            preparedStatement.setString(4, ressources.getName());
-            preparedStatement.setString(5, ressources.getPath_file());
+            preparedStatement.setInt(1, ressources.getId_formation_id());
+            preparedStatement.setString(2, ressources.getPath_file());
+            preparedStatement.setString(3, ressources.getName());
+            preparedStatement.setString(4, ressources.getDescription());
+
+
 
 
             int rows=preparedStatement.executeUpdate();
@@ -41,8 +43,11 @@ public class ServiceRessources implements IService<Ressources> {
 
 
 
+
+
+
     @Override
-    public void update(Ressources ressources){
+    public void updateRessource(Ressources ressources){
         String reqU="UPDATE `formation` SET" +
                 "`name`=?,`description`=?,`path_file` =?WHERE `id`=?";
         try{
@@ -85,12 +90,33 @@ public class ServiceRessources implements IService<Ressources> {
     }
 
     @Override
-    public Formation getFormationById(int formationId) {
-        return null;
+    public Ressources getRessourceById(int RessourceId) {
+        Ressources ressources = null;
+        String query = "SELECT * FROM ressources WHERE id=?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, RessourceId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    ressources = new Ressources();
+                    System.out.println("hello");
+                    ressources.setId(resultSet.getInt("id"));
+                    ressources.setName(resultSet.getString("title"));
+                    ressources.setDescription(resultSet.getString("description"));
+                    ressources.setPath_file(resultSet.getString("Path_file"));
+
+                    System.out.println(ressources);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ressources;
     }
 
+
+
     @Override
-    public ArrayList getAll(){
+    public ArrayList getAllRessources(){
         String reqAF="SELECT * FROM `ressource` ";
         try{
             Statement statement = Mydatabase.getInstance().getCnx().createStatement();
@@ -112,10 +138,7 @@ public class ServiceRessources implements IService<Ressources> {
         return null;
     }
 
-    @Override
-    public void update(Formation formation) {
 
-    }
 
 
 }

@@ -68,7 +68,7 @@ public class Ajouterformation {
 
             try{
                 ServiceFormation serviceFormation=new ServiceFormation();
-                serviceFormation.add(sf);
+                serviceFormation.addFormation(sf);
                 showAlert("Ajouter Formation", "La formation est ajouter.");
             }catch (Exception eu){
                 System.out.println(eu.getMessage());

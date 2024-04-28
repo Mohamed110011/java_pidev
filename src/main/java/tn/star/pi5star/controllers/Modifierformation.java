@@ -81,7 +81,7 @@ public class Modifierformation implements Initializable {
 
                 System.out.println("--------------------------------------"+sf);
 
-                serviceFormation.update(sf);
+                serviceFormation.updateFormation(sf);
                 showAlert("update Formation", "La formation est modifier.");
             }catch (Exception eu){
                 System.out.println(eu.getMessage());

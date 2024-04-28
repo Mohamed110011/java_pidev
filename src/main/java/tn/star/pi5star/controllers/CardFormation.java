@@ -102,10 +102,18 @@ public class CardFormation {
 
     @FXML
     void ajouterRessource(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterressource.fxml"));
         try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ajouterressource.fxml"));
             Parent fxmlLoader = loader.load();
             ajouterressourceaff.getScene().setRoot(fxmlLoader);
+            Ajouterressource ajouterressource = loader.getController();
+            ajouterressource.getFormationId(formation.getId());
+            System.out.println(formation.getId());
+
+
+
+
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }

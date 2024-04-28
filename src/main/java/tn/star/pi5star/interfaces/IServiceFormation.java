@@ -5,17 +5,17 @@ import tn.star.pi5star.models.Ressources;
 
 import java.util.ArrayList;
 
-public interface IService<T>{
-    void add (T t );
-    ArrayList<T> getAll();
+public interface IServiceFormation<T>{
+    void addFormation (T t );
+    ArrayList<T> getAllFormations();
 
 
 
 
-    void update(Formation formation);
+    void updateFormation(Formation formation);
 
 
-    void update(Ressources ressources);
+
 
     boolean delete (int id);
 

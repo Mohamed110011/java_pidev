@@ -1,6 +1,6 @@
 package tn.star.pi5star.services;
 
-import tn.star.pi5star.interfaces.IService;
+import tn.star.pi5star.interfaces.IServiceFormation;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
@@ -8,7 +8,7 @@ import tn.star.pi5star.utils.Mydatabase;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceFormation implements IService<Formation> {
+public class ServiceFormation implements IServiceFormation<Formation> {
 
 
     private Connection cnx ;
@@ -17,7 +17,7 @@ public class ServiceFormation implements IService<Formation> {
         cnx = Mydatabase.getInstance().getCnx();
     }
     @Override
-    public void add(Formation formation) {
+    public void addFormation(Formation formation) {
         String reqA="INSERT INTO `formation`( `title`, `description`, `image`,`date`) VALUES (?,?,?,?)";
 
         try{
@@ -46,7 +46,7 @@ public class ServiceFormation implements IService<Formation> {
     }
 
     @Override
-    public ArrayList<Formation> getAll() {
+    public ArrayList<Formation> getAllFormations() {
         System.out.println("get all formation");
         ArrayList<Formation> formations = new ArrayList<>();
         String qry ="SELECT * FROM `formation`";
@@ -79,7 +79,7 @@ public class ServiceFormation implements IService<Formation> {
     }
 
     @Override
-    public void update(Formation formation) {
+    public void updateFormation(Formation formation) {
         String query = "UPDATE formation SET title=?, description=?,  image=?, date=? WHERE id=?";
         try (PreparedStatement statement = cnx.prepareStatement(query)) {
             statement.setString(1, formation.getTitle());
@@ -97,25 +97,28 @@ public class ServiceFormation implements IService<Formation> {
 
     }
 
-    @Override
-    public void update(Ressources ressources) {
 
-    }
 
 
     @Override
-    public boolean delete(int id){
-        String reqD="DELETE FROM `formation` WHERE `id`=?";
+    public boolean delete(int id) {
+        try {
+            // Delete associated resources first
+            String reqDResources = "DELETE FROM `resource` WHERE `id_formation_id`=?";
+            PreparedStatement preparedStatementResources = Mydatabase.getInstance().getCnx().prepareStatement(reqDResources);
+            preparedStatementResources.setInt(1, id);
+            preparedStatementResources.executeUpdate();
+            preparedStatementResources.close();
 
-        try{
-            PreparedStatement preparedStatement = Mydatabase.getInstance().getCnx().prepareStatement(reqD);
-
-
-            preparedStatement.setInt(1,id);
-
-            int rows=preparedStatement.executeUpdate();
-            if(rows>0){
-                System.out.println("La formation a été supprimé avec succés");
+            // Now delete the formation itself
+            String reqDFormation = "DELETE FROM `formation` WHERE `id`=?";
+            PreparedStatement preparedStatementFormation = Mydatabase.getInstance().getCnx().prepareStatement(reqDFormation);
+            preparedStatementFormation.setInt(1, id);
+            int rows = preparedStatementFormation.executeUpdate();
+            preparedStatementFormation.close(); // Close the PreparedStatement
+            if (rows > 0) {
+                System.out.println("La formation a été supprimée avec succès");
+                return true; // Return true if deletion is successful
             }
         }catch(SQLException e){
             System.err.println(e.getMessage());

@@ -65,7 +65,7 @@ public class AfficherFormation implements Initializable {
 
 
     private List<Formation> LoadFormation(){
-        List<Formation> formations = new ArrayList<>(serviceFormation.getAll());
+        List<Formation> formations = new ArrayList<>(serviceFormation.getAllFormations());
         return formations;
     }
 
