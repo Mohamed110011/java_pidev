@@ -3,7 +3,7 @@ package tn.star.pi5star.models;
 public class Ressources {
 
 
-    private int id, id_formation_id;
+    private int id, id_formation;
     private String name;
 
 
@@ -15,7 +15,7 @@ public class Ressources {
     }
 
     public Ressources(int id_formation, String name, String description, String path_file) {
-        this.id_formation_id = id_formation;
+        this.id_formation = id_formation;
         this.name = name;
         this.description = description;
         this.path_file = path_file;
@@ -23,7 +23,7 @@ public class Ressources {
 
     public Ressources(int id, int id_formation, String name, String description, String path_file) {
         this.id = id;
-        this.id_formation_id = id_formation;
+        this.id_formation = id_formation;
         this.name = name;
         this.description = description;
         this.path_file = path_file;
@@ -38,11 +38,11 @@ public class Ressources {
     }
 
     public int getId_formation_id() {
-        return id_formation_id;
+        return id_formation;
     }
 
     public void setId_formation_id(int id_formation_id) {
-        this.id_formation_id = id_formation_id;
+        this.id_formation = id_formation_id;
     }
 
     public String getName() {
@@ -73,10 +73,12 @@ public class Ressources {
     public String toString() {
         return "ressources{" +
                 "id=" + id +
-                ", id_formation=" + id_formation_id +
+                ", id_formation=" + id_formation +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", path_file='" + path_file + '\'' +
                 '}';
     }
+
+
 }

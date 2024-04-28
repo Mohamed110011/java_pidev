@@ -19,6 +19,8 @@ public class CardFormation {
 
     @FXML
     private HBox boxaff;
+    @FXML
+    private Button afficher_ressource;
 
     @FXML
     private Label descriptionaff;
@@ -36,6 +38,31 @@ public class CardFormation {
 
     @FXML
     private Label titleaff;
+
+
+
+    private int formationId;
+    ServiceFormation serviceFormation=new ServiceFormation();
+
+    Formation sf = new Formation();
+
+    void getFormationId(int id){
+        formationId=id;
+        sf=serviceFormation.getFormationById(formationId);
+        System.out.println("howwwwwwwwwwww"+sf);
+
+
+
+
+
+
+
+
+
+
+    }
+
+
 
     private Formation formation;
     private AfficherFormation parentController;
@@ -120,7 +147,30 @@ public class CardFormation {
 
 
     }
+
+    @FXML
+    void afficherressourcebtn(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherressource.fxml"));
+            Parent fxmlLoader = loader.load();
+            modifieraff.getScene().setRoot(fxmlLoader);
+            Afficherressource afficherressource = loader.getController();
+            afficherressource.getFormationId(formation.getId());
+            System.out.println(formation.getId());
+
+
+
+
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
+
+
+}
 
 
 

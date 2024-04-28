@@ -104,7 +104,7 @@ public class ServiceFormation implements IServiceFormation<Formation> {
     public boolean delete(int id) {
         try {
             // Delete associated resources first
-            String reqDResources = "DELETE FROM `resource` WHERE `id_formation_id`=?";
+            String reqDResources = "DELETE FROM `ressource` WHERE `id_formation`=?";
             PreparedStatement preparedStatementResources = Mydatabase.getInstance().getCnx().prepareStatement(reqDResources);
             preparedStatementResources.setInt(1, id);
             preparedStatementResources.executeUpdate();

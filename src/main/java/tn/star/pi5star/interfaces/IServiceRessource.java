@@ -4,6 +4,7 @@ import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IServiceRessource <T>{
     void addRessource (T t );
@@ -21,5 +22,10 @@ public interface IServiceRessource <T>{
 
 
 
-    Ressources getRessourceById(int RessourceId);
+
+
+    List<Ressources> getRessourcesById(int RessourceId);
+
+    Ressources getRessourceByIdFormation(int FormationId);
 }
+

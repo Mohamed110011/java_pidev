@@ -46,6 +46,7 @@
                      <effect>
                         <ColorAdjust brightness="-0.09" contrast="0.21" hue="-0.9" saturation="0.54" />
                      </effect></Button>
+                  <Button fx:id="afficher_ressource" mnemonicParsing="false" onAction="#afficherressourcebtn" text="Button" />
                </children>
             </HBox>
          </children>

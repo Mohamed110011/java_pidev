@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.services.ServiceFormation;
+import tn.star.pi5star.services.ServiceRessources;
 import tn.star.pi5star.utils.Validator;
 
 import java.io.*;
@@ -116,6 +117,11 @@ public class Ajouterformation {
     @FXML
     void afficherF(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherformation.fxml"));
+        ServiceRessources serviceRessources=new ServiceRessources();
+        System.out.println("******************************************");
+        serviceRessources.getRessourcesById(120);
+        System.out.println("******************************************");
+
         try {
             Parent fxmlLoader = loader.load();
             titleF.getScene().setRoot(fxmlLoader);

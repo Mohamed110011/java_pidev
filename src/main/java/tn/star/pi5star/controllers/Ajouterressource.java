@@ -86,7 +86,7 @@ try{
 
             ressources.setName(nameR.getText());
             ressources.setDescription(descR.getText());
-            ressources.setId_formation_id(formationId);
+ressources.setId_formation_id(formationId);
             ressources.setPath_file((mediaView.getMediaPlayer().getMedia().getSource()));
 
 
