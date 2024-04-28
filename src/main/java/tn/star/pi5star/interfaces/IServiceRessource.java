@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface IServiceRessource <T>{
     void addRessource (T t );
+
+    Ressources getRessoById(int ressourceId);
+
     ArrayList<T> getAllRessources();
 
 

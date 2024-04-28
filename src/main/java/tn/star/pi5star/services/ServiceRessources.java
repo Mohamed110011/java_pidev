@@ -1,12 +1,12 @@
 package tn.star.pi5star.services;
 
 import tn.star.pi5star.interfaces.IServiceRessource;
+import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ServiceRessources implements IServiceRessource<Ressources> {
     private Connection cnx ;
@@ -47,16 +47,15 @@ public class ServiceRessources implements IServiceRessource<Ressources> {
 
     @Override
     public void updateRessource(Ressources ressources){
-        String reqU="UPDATE `formation` SET" +
-                "`name`=?,`description`=?,`path_file` =?WHERE `id`=?";
-        try{
+        String query = " UPDATE ressource SET  name=?, description=?, path_file =? WHERE id=? ";
+        try
+            (PreparedStatement statement = cnx.prepareStatement(query)) {
 
-            PreparedStatement preparedStatement=Mydatabase.getInstance().getCnx().prepareStatement(reqU) ;
-            preparedStatement.setString(1, reqU);
-            preparedStatement.setString(2,reqU);
-            preparedStatement.setString(3,reqU);
-            preparedStatement.setInt(4,ressources.getId());
-            int rows = preparedStatement.executeUpdate();
+            statement.setString(1, ressources.getName());
+            statement.setString(2, ressources.getDescription());
+            statement.setString(3, ressources.getPath_file());
+            statement.setLong(4, ressources.getId());
+            int rows = statement.executeUpdate();
             if(rows>0){
                 System.out.println("ressources a été modifié avec succés");
             }
@@ -142,7 +141,29 @@ public class ServiceRessources implements IServiceRessource<Ressources> {
         return null;
     }
 
-
+    @Override
+    public Ressources getRessoById(int ressourceId) {
+        Ressources ressources = null;
+        String query = "SELECT * FROM ressource WHERE id=?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setLong(1, ressourceId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    ressources = new Ressources();
+                    System.out.println("hello");
+                    ressources.setId(resultSet.getInt("id"));
+                    ressources.setId_formation_id(resultSet.getInt("id_formation"));
+                    ressources.setName(resultSet.getString("name"));
+                    ressources.setDescription(resultSet.getString("description"));
+                    ressources.setPath_file(resultSet.getString("Path_file"));
+                    System.out.println(ressources);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ressources;
+    }
 
     @Override
     public ArrayList getAllRessources(){

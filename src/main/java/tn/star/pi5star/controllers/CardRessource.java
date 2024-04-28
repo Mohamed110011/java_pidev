@@ -43,6 +43,7 @@ public class CardRessource {
 
 
     private Ressources ressources;
+    private Formation formation;
     private Afficherressource parentController;
     public void setParentController(Afficherressource parentController) { // Ajoutez cette méthode
         this.parentController = parentController;
@@ -78,6 +79,21 @@ public class CardRessource {
 
     @FXML
     void modifierRessource(ActionEvent event) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/modifierressource.fxml"));
+            Parent fxmlLoader = loader.load();
+            modifierressourcebtn.getScene().setRoot(fxmlLoader);
+            Modifierressource modifierressource = loader.getController();
+            modifierressource.getRessourceId(ressources.getId());
+            System.out.println(ressources.getId());
+
+
+
+
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
