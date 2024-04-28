@@ -113,7 +113,7 @@ public class CardFormation {
         // Reload the page here
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListChild.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherFormation.fxml"));
             Parent root = loader.load();
 
             // Get the current scene and set the new root

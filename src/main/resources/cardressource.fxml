@@ -8,14 +8,9 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="boxaff" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="407.0" spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.star.pi5star.controllers.CardRessource">
+<HBox fx:id="boxaff" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" spacing="15.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.star.pi5star.controllers.CardRessource">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <MediaView fx:id="mediaViewR" fitHeight="200.0" fitWidth="200.0" />
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="182.0" prefWidth="253.0">
+      <VBox alignment="CENTER" prefHeight="182.0" prefWidth="300.0">
          <children>
             <Label fx:id="nameressource" alignment="TOP_CENTER" prefHeight="67.0" prefWidth="265.0" text="name" textFill="#084ff5">
                <font>
@@ -27,7 +22,7 @@
                   <Font name="Bodoni MT" size="17.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                <children>
                   <Button fx:id="modifierressourcebtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifierRessource" prefHeight="26.0" prefWidth="74.0" text="Modifier" textFill="#484f94">
                      <effect>
@@ -43,5 +38,6 @@
             </HBox>
          </children>
       </VBox>
+      <MediaView fx:id="mediaViewR" fitHeight="2.0" fitWidth="2.0" />
    </children>
 </HBox>

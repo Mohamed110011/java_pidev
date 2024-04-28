@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
@@ -24,7 +25,7 @@ public class Afficherressource implements Initializable {
     private HBox CardLayout;
 
     @FXML
-    private Button ajouterformation;
+    private Button ajouterressource;
 
     private int formationId;
 
@@ -71,7 +72,13 @@ public class Afficherressource implements Initializable {
     }
 
     @FXML
-    void navigationtoajout(ActionEvent event) {
-        // Implement navigation to add resources if needed
+    void navigationtoajoutR(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/afficherformation.fxml"));
+        try {
+            Parent fxmlLoader = loader.load();
+            ajouterressource.getScene().setRoot(fxmlLoader);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-}
+    }
