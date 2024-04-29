@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.services.ServiceFormation;
@@ -22,6 +23,8 @@ public class AfficherFormation implements Initializable {
 
     @FXML
     private Button ajouterformation;
+    @FXML
+    private TextField recherche;
 
     private final ServiceFormation serviceFormation= new ServiceFormation();
 
@@ -79,6 +82,49 @@ public class AfficherFormation implements Initializable {
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @FXML
+    void rechercher(ActionEvent event) {
+        String searchQuery = recherche.getText().trim().toLowerCase(); // Get the search query from the TextField
+
+        // Clear existing cards
+        CardLayoout.getChildren().clear();
+
+        // Reload all formations if the search query is empty
+        if (searchQuery.isEmpty()) {
+            refreshData();
+            return;
+        }
+
+        // Filter formations based on the search query
+
+
+        List <Formation> filteredFormations = new ArrayList<>();
+        for (Formation formation : LoadFormation) {
+            // Check if the formation's title or description contains the search query
+            if (formation.getTitle().toLowerCase().contains(searchQuery) ||
+                    formation.getDescription().toLowerCase().contains(searchQuery) ||
+                    formation.getDate().toString().toLowerCase().contains(searchQuery)) {
+                filteredFormations.add(formation);
+            }
+        }
+
+        // Update UI with filtered formations
+        try {
+            for (Formation formation : filteredFormations) {
+                FXMLLoader fxmlloader = new FXMLLoader();
+                fxmlloader.setLocation(getClass().getResource("/cardformation.fxml"));
+                HBox cardBox = fxmlloader.load();
+                CardFormation formationCard = fxmlloader.getController();
+                formationCard.setParentController(this); // Set parent controller reference
+                formationCard.setData(formation);
+                CardLayoout.getChildren().add(cardBox);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     }
