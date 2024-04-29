@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
+import org.controlsfx.control.Rating;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 
@@ -23,6 +24,10 @@ public class Afficherressource implements Initializable {
 
     @FXML
     private HBox CardLayout;
+    @FXML
+    private Rating starRating;
+    @FXML
+    private Button Rating;
 
     @FXML
     private Button ajouterressource;
@@ -80,5 +85,24 @@ public class Afficherressource implements Initializable {
         }catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+
+    @FXML
+    void ratingbtn(ActionEvent event) {
+        double ratingValue = starRating.getRating(); // Obtenez la valeur de notation sélectionnée par l'utilisateur
+        int nombre_modifications = serviceFormation.getTotalRatings(formationId); // Obtenez le nombre total de notations pour cette formation
+        double currentRating = serviceFormation.getCurrentRating(formationId); // Obtenez le rating actuel de la formation
+
+        // Calculez le nouveau rating moyen en tenant compte de la nouvelle notation
+        double newRating = (currentRating * nombre_modifications + ratingValue) / (nombre_modifications + 1);
+
+        // Mettez à jour la notation de la formation associée dans votre système
+        serviceFormation.updateFormationRate(formationId, newRating); // Mettez à jour la notation dans votre base de données
+
+
+        // Rafraîchissez l'affichage pour refléter la nouvelle notation
+        refreshData();
+
     }
     }

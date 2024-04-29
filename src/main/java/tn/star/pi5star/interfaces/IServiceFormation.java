@@ -22,4 +22,12 @@ public interface IServiceFormation<T>{
 
 
     Formation getFormationById(int formationId);
+
+    void updateFormationRate(int formationId, double newRate);
+
+    int getTotalRatings(int formationId);
+
+    double getCurrentRating(int formationId);
+
+
 }

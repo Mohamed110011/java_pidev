@@ -2,7 +2,6 @@ package tn.star.pi5star.services;
 
 import tn.star.pi5star.interfaces.IServiceFormation;
 import tn.star.pi5star.models.Formation;
-import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
 
 import java.sql.*;
@@ -148,6 +147,83 @@ public class ServiceFormation implements IServiceFormation<Formation> {
         }
         return formation;
     }
+    @Override
+    public void updateFormationRate(int formationId, double newRate) {
 
-}
+        String sql = "UPDATE formation SET rate = (rate * nombre_modifications + ?) / (nombre_modifications + 1), nombre_modifications = nombre_modifications + 1, modificationCount = modificationCount + 1 WHERE id = ?";
+
+        try (PreparedStatement statement = cnx.prepareStatement(sql))
+              {
+
+                  statement.setDouble(1, newRate);
+
+                  statement.setInt(2, formationId);
+                  System.out.println("newRate"+newRate);
+                  statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la mise à jour de la notation de la formation: " + e.getMessage());
+        }
+
+
+    }
+    @Override
+    public int getTotalRatings(int formationId) {
+        int nombre_modifications = 0;
+        // Code pour récupérer le nombre total de notations pour la formation spécifique dans votre système de stockage
+
+        // Exemple de requête dans une base de données MySQL avec JDBC
+        String sql = "SELECT nombre_modifications FROM formation WHERE id = ?";
+
+        try (PreparedStatement statement = cnx.prepareStatement(sql)) {
+
+            statement.setInt(1, formationId);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                nombre_modifications = rs.getInt("nombre_modifications");
+
+            }
+
+            System.out.println("nombre_modifications"+nombre_modifications);
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du nombre total de notations pour la formation: " + e.getMessage());
+        }
+
+        return nombre_modifications;
+
+    }
+
+    @Override
+    public double getCurrentRating(int formationId) {
+        double modificationCount = 0.0;
+        // Code pour récupérer le rating actuel de la formation spécifique dans votre système de stockage
+
+        // Exemple de requête dans une base de données MySQL avec JDBC
+        String sql = "SELECT modificationCount FROM formation WHERE id = ?";
+
+        try (PreparedStatement statement = cnx.prepareStatement(sql))  {
+
+            statement.setInt(1, formationId);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                modificationCount = rs.getDouble("modificationCount");
+            }
+
+            System.out.println("modificationCOUNT"+modificationCount);
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du rating actuel de la formation: " + e.getMessage());
+        }
+
+        return modificationCount;
+    }
+
+
+
+
+    }
+
+
+
 

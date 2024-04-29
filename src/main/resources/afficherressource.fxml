@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.Rating?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.star.pi5star.controllers.Afficherressource">
    <children>
@@ -14,11 +15,13 @@
             <Font name="System Bold" size="21.0" />
          </font>
       </Text>
-      <ScrollPane layoutX="154.0" layoutY="69.0" prefHeight="284.0" prefWidth="481.0">
+      <ScrollPane layoutX="154.0" layoutY="110.0" prefHeight="284.0" prefWidth="481.0">
          <content>
             <HBox fx:id="CardLayout" prefHeight="282.0" prefWidth="481.0" spacing="2.0" />
          </content>
       </ScrollPane>
       <Button fx:id="ajouterressource" layoutX="533.0" layoutY="46.0" mnemonicParsing="false" onAction="#navigationtoajoutR" text="ajouter ressource" />
+      <Rating fx:id="starRating" layoutX="154.0" layoutY="71.0" />
+      <Button fx:id="Rating" layoutX="376.0" layoutY="75.0" mnemonicParsing="false" onAction="#ratingbtn" text="Rating" />
    </children>
 </AnchorPane>

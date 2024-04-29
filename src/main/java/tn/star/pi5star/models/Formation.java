@@ -5,7 +5,11 @@ import java.util.Date;
 
 public class Formation {
     private int id,idSpecialiste;
-    private String title,description, image;
+    private int modificationCount;
+    private int nombre_modifications;
+
+    private String title,description, image ;
+    private Double rate;
     private java.util.Date date;
 
 
@@ -72,6 +76,39 @@ public class Formation {
         this.date = date;
     }
 
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public int getModificationCount() {
+        return modificationCount;
+    }
+
+    public void setModificationCount(int modificationCount) {
+        this.modificationCount = modificationCount;
+    }
+
+    public int getnombre_modifications() {
+        return nombre_modifications;
+    }
+
+    public void setnombre_modifications(int totalRatings) {
+        this.nombre_modifications = totalRatings;
+
+    }
+
+    public int getNombre_modifications() {
+        return nombre_modifications;
+    }
+
+    public void setNombre_modifications(int nombre_modifications) {
+        this.nombre_modifications = nombre_modifications;
+    }
+
     @Override
     public String toString() {
         return "Formation{" +
@@ -82,4 +119,6 @@ public class Formation {
                 ", date=" + date +
                 '}';
     }
+
+
 }
