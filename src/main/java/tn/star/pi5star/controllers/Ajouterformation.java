@@ -14,22 +14,31 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import okhttp3.*;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.services.ServiceFormation;
 import tn.star.pi5star.services.ServiceRessources;
 import tn.star.pi5star.utils.Validator;
-
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.Date;
-import java.time.LocalDate;
+
+
+
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+
+import java.util.Properties;
+
+
+
+
 
 public class Ajouterformation {
+
+
+
+
 
 
     @FXML
@@ -51,7 +60,10 @@ public class Ajouterformation {
     Formation sf = new Formation();
 
     @FXML
-    void ajouterF(ActionEvent event) {
+    void ajouterF(ActionEvent event) throws MessagingException, IOException {
+
+
+
 
         if (Validator.isNonEmpty(titleF) && Validator.isNonEmpty(descF)){
 
@@ -85,6 +97,29 @@ public class Ajouterformation {
         }
         }
     else{Validator.showAlert("Error", "Please fill in all the fields");}
+
+
+
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("from", "mohamed <mohamed.taher@isimg.tn>")
+                .addFormDataPart("subject", "Free trial")
+                .addFormDataPart("to", "{\"to\":\"mohamed.taher@isimg.tn\",\"placeholders\":{\"firstName\":\"Mohamed\"}}")
+                .addFormDataPart("text", "Hi {{firstName}},"+titleF.getText()+" Une formation est ajoutee. Have a nice day!")
+                .build();
+        Request request = new Request.Builder()
+                .url("https://n8l642.api.infobip.com/email/3/send")
+                .method("POST", body)
+                .addHeader("Authorization", "App 58d686143795cf706f21de210afef7f2-25437752-2a11-4b4b-a6f9-89d829f1eba3")
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Accept", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+
+
+
     }
 
     private void showAlert(String title, String content) {
@@ -93,6 +128,8 @@ public class Ajouterformation {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+
+
     }
 
     @FXML

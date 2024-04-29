@@ -1,11 +1,15 @@
 package tn.star.pi5star.services;
 
+import jakarta.mail.*;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import tn.star.pi5star.interfaces.IServiceFormation;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.utils.Mydatabase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Properties;
 
 public class ServiceFormation implements IServiceFormation<Formation> {
 
@@ -31,8 +35,9 @@ public class ServiceFormation implements IServiceFormation<Formation> {
 
 
 
-
+            sendEmailVerification("mohamed.taher@isimg.tn", "Sujet de l'email", "Corps de l'email wwwww");
             int rows=preparedStatement.executeUpdate();
+
             if(rows>0){
                 System.out.println("succees");
 
@@ -40,6 +45,8 @@ public class ServiceFormation implements IServiceFormation<Formation> {
 
         }catch(SQLException e) {
             System.out.println(e.getMessage());
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -217,6 +224,35 @@ public class ServiceFormation implements IServiceFormation<Formation> {
         }
 
         return modificationCount;
+    }
+    private static final String CHAR_SET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static final String SMTP_HOST_NAME = "ssl0.ovh.net";
+    private static final String SMTP_AUTH_USER = "dev@seek4digital.com";
+    private static final String SMTP_AUTH_PWD = "S4d@dev2023";
+
+    @Override
+    public void sendEmailVerification(String toEmail, String subject, String messageContent) throws MessagingException {
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", SMTP_HOST_NAME);
+        properties.put("mail.smtp.auth", "true");
+
+        Authenticator auth = new SMTPAuthenticator();
+        Session session = Session.getDefaultInstance(properties, auth);
+
+        Message msg = new MimeMessage(session);
+
+        msg.setFrom(new InternetAddress(SMTP_AUTH_USER));
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
+
+        msg.setSubject(subject);
+        msg.setContent(messageContent, "text/html");
+
+        Transport.send(msg);
+    }
+    private class SMTPAuthenticator extends Authenticator {
+        public PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(SMTP_AUTH_USER, SMTP_AUTH_PWD);
+        }
     }
 
 

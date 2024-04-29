@@ -1,5 +1,6 @@
 package tn.star.pi5star.interfaces;
 
+import jakarta.mail.MessagingException;
 import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 
@@ -30,4 +31,5 @@ public interface IServiceFormation<T>{
     double getCurrentRating(int formationId);
 
 
+    void sendEmailVerification(String toEmail, String subject, String messageContent) throws MessagingException;
 }
