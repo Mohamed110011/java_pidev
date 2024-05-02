@@ -97,7 +97,7 @@ ressources.setId_formation_id(formationId);
 
                 ServiceRessources serviceRessources=new ServiceRessources();
                 serviceRessources.addRessource(ressources);
-                showAlert("Ajouter Ressource", "La formation est ajouter.");
+                showAlert("Ajouter Ressource", "La ressource est ajouter.");
             }catch (Exception eu){
                 System.out.println(eu.getMessage());
                 showAlert("formation failed", "famma ghalta owwwww.");

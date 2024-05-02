@@ -31,7 +31,7 @@
                   </Button>
                   <Button fx:id="supprimerressourcebtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#supprimerRessource" prefHeight="26.0" prefWidth="76.0" text="Supprimer" textFill="#484f94">
                      <effect>
-                        <ColorAdjust brightness="-0.09" contrast="0.21" hue="-0.9" saturation="0.54" />
+                        <ColorAdjust brightness="-0.24" contrast="0.21" hue="-0.04" saturation="0.65" />
                      </effect>
                   </Button>
                </children>

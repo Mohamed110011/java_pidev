@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="root" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="10"
+      fx:controller="tn.star.pi5star.controllers.ChatbotController">
+    <children>
+        <TextArea fx:id="chatArea" editable="false" prefHeight="250.0" prefWidth="400.0" VBox.vgrow="ALWAYS"/>
+        <TextField fx:id="userInputField" onAction="#handleUserInput" promptText="Enter your message..." prefWidth="400.0"/>
+    </children>
+</VBox>

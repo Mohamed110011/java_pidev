@@ -46,8 +46,47 @@
     -fx-text-fill: #000;
 }
 
-.cancel:hover {
-    -fx-background-color: linear-gradient(204deg, rgba(255,0,0,1) 8%, rgba(154,91,173,1) 98%);
-    -fx-transition-duration: 722ms;
-    -fx-translate-y: -4px;
+
+#boxaff {
+    -fx-background-color: #f0f0f0; /* Light gray */
+}
+
+/* Style the title label */
+#titleaff {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #084ff5; /* Blue */
+}
+
+/* Style the description label */
+#descriptionaff {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333; /* Dark gray */
+}
+
+/* Style the date label */
+#dateF {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #333; /* Dark gray */
+}
+
+/* Style the buttons */
+.button {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+}
+
+/* Style the buttons on hover */
+.button:hover {
+    -fx-background-color: #084ff5; /* Blue */
+    -fx-text-fill: #fff; /* White */
+}
+
+/* Style the buttons on press */
+.button:pressed {
+    -fx-background-color: #002080; /* Darker blue */
 }
