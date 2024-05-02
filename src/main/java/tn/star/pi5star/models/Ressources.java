@@ -10,6 +10,7 @@ public class Ressources {
 
     private String description;
     private String path_file;
+    private int like,dislike;
 
     public Ressources() {
     }
@@ -67,6 +68,22 @@ public class Ressources {
 
     public void setPath_file(String path_file) {
         this.path_file = path_file;
+    }
+
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getDislike() {
+        return dislike;
+    }
+
+    public void setDislike(int dislike) {
+        this.dislike = dislike;
     }
 
     @Override

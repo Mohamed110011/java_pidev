@@ -24,18 +24,14 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                <children>
-                  <Button fx:id="modifierressourcebtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifierRessource" prefHeight="26.0" prefWidth="74.0" text="Modifier" textFill="#484f94">
-                     <effect>
-                        <ColorAdjust brightness="-0.09" contrast="0.21" hue="-0.9" saturation="0.54" />
-                     </effect>
-                  </Button>
-                  <Button fx:id="supprimerressourcebtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#supprimerRessource" prefHeight="26.0" prefWidth="76.0" text="Supprimer" textFill="#484f94">
-                     <effect>
-                        <ColorAdjust brightness="-0.24" contrast="0.21" hue="-0.04" saturation="0.65" />
-                     </effect>
-                  </Button>
+                  <Button fx:id="likeButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#likeResource" prefHeight="26.0" prefWidth="74.0" text="Like" textFill="#484f94" />
+                  <Button fx:id="dislikeButton" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#dislikeResource" prefHeight="26.0" prefWidth="76.0" text="Dislike" textFill="#484f94" />
+                  <Button fx:id="modifierressourcebtn" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifierRessource" prefHeight="26.0" prefWidth="74.0" text="Modifier" textFill="#484f94" />
+                  <Button fx:id="supprimerressourcebtn" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#supprimerRessource" prefHeight="26.0" prefWidth="76.0" text="Supprimer" textFill="#484f94" />
                </children>
             </HBox>
+            <Label fx:id="likeCountLabel" text="0" />
+            <Label fx:id="dislikeCountLabel" text="0" />
          </children>
       </VBox>
       <MediaView fx:id="mediaViewR" fitHeight="2.0" fitWidth="2.0" />

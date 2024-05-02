@@ -1,7 +1,6 @@
 package tn.star.pi5star.services;
 
 import tn.star.pi5star.interfaces.IServiceRessource;
-import tn.star.pi5star.models.Formation;
 import tn.star.pi5star.models.Ressources;
 import tn.star.pi5star.utils.Mydatabase;
 
@@ -191,4 +190,81 @@ public class ServiceRessources implements IServiceRessource<Ressources> {
 
 
 
+
+////////////////////////
+@Override
+    public void incrementLike(int resourceId) {
+        String query = "UPDATE ressource SET likee = likee + 1 WHERE id = ?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, resourceId);
+            int rows = statement.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Like count has been incremented for resource id: " + resourceId);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+    @Override
+    public void incrementDislike(int resourceId) {
+        String query = "UPDATE ressource SET dislike = dislike + 1 WHERE id = ?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, resourceId);
+            int rows = statement.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Dislike count has been incremented for resource id: " + resourceId);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+
+    //////////////////
+    @Override
+    public int getLikeCount(int ressourceId) {
+        int likeCount = 0;
+
+        String query = " SELECT likee FROM ressource WHERE id = ? ";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setInt(1, ressourceId);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                likeCount = rs.getInt("likee");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        return likeCount;
+    }
+
+
+    @Override
+    public  int getDislikeCount(int ressourceId) {
+        int dislikeCount = 0;
+        String query = "SELECT dislike FROM ressource WHERE id = ?";
+
+
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+
+            statement.setInt(1, ressourceId);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                dislikeCount = rs.getInt("dislike");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return dislikeCount;
+    }
 }
+
+
+

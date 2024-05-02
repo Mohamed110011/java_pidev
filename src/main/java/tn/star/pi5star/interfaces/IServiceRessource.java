@@ -30,5 +30,15 @@ public interface IServiceRessource <T>{
     List<Ressources> getRessourcesById(int RessourceId);
 
     Ressources getRessourceByIdFormation(int FormationId);
+
+    ////////////////////////
+    void incrementLike(int resourceId);
+
+    void incrementDislike(int resourceId);
+
+    //////////////////
+    int getLikeCount(int ressourceId);
+
+    int getDislikeCount(int ressourceId);
 }
 

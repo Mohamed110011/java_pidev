@@ -29,7 +29,16 @@ public class CardRessource {
 
     @FXML
     private Button modifierressourcebtn;
+    @FXML
+    private Button likeButton;
 
+    @FXML
+    private Button dislikeButton;
+    @FXML
+    private Label likeCountLabel;
+
+    @FXML
+    private Label dislikeCountLabel;
 
     @FXML
     private Label nameressource;
@@ -69,6 +78,8 @@ public class CardRessource {
 
         // Play the media
         mediaPlayer.play();
+        updateLikeCount();
+        updateDislikeCount();
 
 
     }
@@ -117,6 +128,51 @@ public class CardRessource {
             System.out.println(e.getMessage());
         }
 
+    }
+    @FXML
+    void likeResource(ActionEvent event) {
+        if(dislikeButton.isDisable()) {
+            dislikeButton.setDisable(false);
+
+        }
+        ServiceRessources serviceRessources = new ServiceRessources();
+
+        serviceRessources.incrementLike(ressources.getId());
+        updateLikeCount();
+
+        likeButton.setDisable(true);
+        dislikeButton.setDisable(true);
+    }
+
+    @FXML
+    void dislikeResource(ActionEvent event) {
+        if(likeButton.isDisable()) {
+            likeButton.setDisable(false);
+        }
+        ServiceRessources serviceRessources = new ServiceRessources();
+
+        serviceRessources.incrementDislike(ressources.getId());
+
+        updateDislikeCount();
+        likeButton.setDisable(true);
+        dislikeButton.setDisable(true);    }
+
+
+
+    private void updateLikeCount() {
+        // Obtenir le nombre de likes pour la ressource actuelle
+        ServiceRessources serviceRessources = new ServiceRessources();
+        int likeCount = serviceRessources.getLikeCount(ressources.getId());
+        // Mettre à jour l'affichage du nombre de likes
+        likeCountLabel.setText(String.valueOf(likeCount));
+    }
+
+    private void updateDislikeCount() {
+        ServiceRessources serviceRessources = new ServiceRessources();
+
+        int dislikeCount = serviceRessources.getDislikeCount(ressources.getId());
+        // Mettre à jour l'affichage du nombre de dislikes
+        dislikeCountLabel.setText(String.valueOf(dislikeCount));
     }
 
 }

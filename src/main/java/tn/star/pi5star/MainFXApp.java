@@ -16,7 +16,7 @@ public class MainFXApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader fxml=new FXMLLoader(getClass().getResource("/ChatbotApp.fxml"));
+        FXMLLoader fxml=new FXMLLoader(getClass().getResource("/ajouterformation.fxml"));
         try {
             Parent fxmlLoader=fxml.load();
             Scene scene=new Scene(fxmlLoader);
